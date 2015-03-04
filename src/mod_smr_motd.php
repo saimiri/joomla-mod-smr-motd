@@ -16,13 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @package			Joomla.Module
- * @subpackage	Smr.Motd
- * @copyright		Copyright (c) 2015 Saimiri Design (http://www.github.com/saimiri)
- * @author			Juha Auvinen <juha@saimiri.fi>
- * @license			http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0
- * @link				http://www.github.com/saimiri/joomla-html-module
- * @since				File available since Release 0.1
+ * @package     Joomla.Module
+ * @subpackage  Smr.Motd
+ * @copyright   Copyright (c) 2015 Saimiri Design (http://www.github.com/saimiri)
+ * @author      Juha Auvinen <juha@saimiri.fi>
+ * @license     http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0
+ * @link        http://www.github.com/saimiri/joomla-html-module
+ * @since       File available since Release 0.1
  */
 
 // No direct access

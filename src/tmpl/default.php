@@ -1,6 +1,6 @@
 <?php
 /**
- * A Joomla! module for displaying raw HTML. Usefule for code embeds and such.
+ * A Joomla! module for displaying a "message of the day".
  * 
  * Copyright 2015 Saimiri Design.
  *
@@ -16,13 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @package			Joomla.Module
- * @subpackage	Smr.Html
- * @copyright		Copyright (c) 2015 Saimiri Design (http://www.github.com/saimiri)
- * @author			Juha Auvinen <juha@saimiri.fi>
- * @license			http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0
- * @link				http://www.github.com/saimiri/joomla-html-module
- * @since				File available since Release 0.1
+ * @package     Joomla.Module
+ * @subpackage  Smr.Motd
+ * @copyright   Copyright (c) 2015 Saimiri Design (http://www.github.com/saimiri)
+ * @author      Juha Auvinen <juha@saimiri.fi>
+ * @license     http://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0
+ * @link        http://www.github.com/saimiri/joomla-html-module
+ * @since       File available since Release 0.1
  */
 
 // No direct access
@@ -36,7 +36,7 @@ if ( $class ) {
 
 echo '<div class="alert alert-' . $params->get( 'type' ) . ' alert-smr-motd' . $class . '">';
 if ( $module->showtitle ) {
-	echo '<h' . $hLevel . '>' . $this->escape( $module->title ) . '</h' . $hLevel . '>';
+	echo '<h' . $hLevel . '>' . htmlspecialchars( $module->title ) . '</h' . $hLevel . '>';
 }
 echo $params->get( 'message' );
 echo '</div>';
