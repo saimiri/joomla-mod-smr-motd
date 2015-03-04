@@ -1,0 +1,4 @@
+# Release folder
+dist
+# Ignore NetBeans project files
+nbproject
