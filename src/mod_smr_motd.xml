@@ -7,7 +7,7 @@
 	<license>Licensed under the Apache License, Version 2.0</license>
 	<authorEmail>info@saimiri.fi</authorEmail>
 	<authorUrl>www.saimiri.fi</authorUrl>
-	<version>1.0.8</version>
+	<version>1.0.10</version>
 	<description>MOD_SMR_MOTD_DESC</description>
 	<files>
 		<filename module="mod_smr_motd">mod_smr_motd.php</filename>

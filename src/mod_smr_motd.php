@@ -39,6 +39,19 @@ if ( $module->position === 'login' || $params->get( 'show_in_position', 0 ) == 1
 	require JModuleHelper::getLayoutPath( 'mod_smr_motd', $params->get( 'layout', 'default' ) );
 } else if ( $currentUrl === $cPanel && !JFactory::getUser()->guest ) {
 	// By default show the message in the message position on the control panel
+	// The Joomla! message types don't precisely correlate with bootstrap
+	$typeMap = array(
+		'info'    => 'notice',
+		'warning' => 'warning',
+		'error'   => 'error',
+		'success' => 'message'
+	);
+	$type = $params->get( 'type', 'info' );
+	if ( isset( $typeMap[$type] ) ) {
+		$messageType = $typeMap[$type];
+	} else {
+		$messageType = 'notice';
+	}
 	$app = JFactory::getApplication();
-	$app->enqueueMessage( $params->get( 'message' ), $params->get( 'type' ) );
+	$app->enqueueMessage( $params->get( 'message' ), $messageType );
 }
