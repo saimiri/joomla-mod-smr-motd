@@ -33,7 +33,7 @@ defined( '_JEXEC' ) or die;
 $cPanel = JURI::base();
 $currentUrl = str_replace( 'index.php', '', JURI::current() );
 
-if ( $module->position === 'login' || $params->get( 'show_in_position', 1 ) == 1 ) {
+if ( $module->position === 'login' || $params->get( 'show_in_position', 0 ) == 1 ) {
 	// Show message in the actual module position.
 	// Allow override. Use cases are probably pretty limited, but what the heck.
 	require JModuleHelper::getLayoutPath( 'mod_smr_motd', $params->get( 'layout', 'default' ) );
