@@ -1,7 +1,7 @@
 <?php
 /**
  * A Joomla! module for displaying a "message of the day".
- * 
+ *
  * Copyright 2015 Saimiri Design.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @package     Joomla.Module
  * @subpackage  Smr.Motd
  * @copyright   Copyright (c) 2015 Saimiri Design (http://www.github.com/saimiri)
@@ -33,18 +33,19 @@ defined( '_JEXEC' ) or die;
 $cPanel = JURI::base();
 $currentUrl = str_replace( 'index.php', '', JURI::current() );
 
-if ( $module->position === 'login' || $params->get( 'show_in_position', 0 ) == 1 ) {
+if ( $module->position === 'login' || $params->get( 'show_as_system_message', 0 ) == 0 ) {
 	// Show message in the actual module position.
 	// Allow override. Use cases are probably pretty limited, but what the heck.
 	require JModuleHelper::getLayoutPath( 'mod_smr_motd', $params->get( 'layout', 'default' ) );
 } else if ( $currentUrl === $cPanel && !JFactory::getUser()->guest ) {
-	// By default show the message in the message position on the control panel
+	// Show the message in the message position on the control panel
 	// The Joomla! message types don't precisely correlate with bootstrap
 	$typeMap = array(
 		'info'    => 'notice',
 		'warning' => 'warning',
 		'error'   => 'error',
-		'success' => 'message'
+		'success' => 'message',
+		'none'    => 'none'
 	);
 	$type = $params->get( 'type', 'info' );
 	if ( isset( $typeMap[$type] ) ) {

@@ -7,7 +7,7 @@
 	<license>Licensed under the Apache License, Version 2.0</license>
 	<authorEmail>info@saimiri.fi</authorEmail>
 	<authorUrl>www.saimiri.fi</authorUrl>
-	<version>1.0.10</version>
+	<version>1.1.0</version>
 	<description>MOD_SMR_MOTD_DESC</description>
 	<files>
 		<filename module="mod_smr_motd">mod_smr_motd.php</filename>
@@ -25,13 +25,22 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="show_in_position" label="MOD_SMR_MOTD_SHOW_IN_POSITION" type="checkbox" value="1" />
-				<field name="heading_level" label="MOD_SMR_MOTD_HEADING_LEVEL" type="integer" default="3" first="1" last="6" step="1" />
+				<!-- field name="show_in_position" label="MOD_SMR_MOTD_SHOW_IN_POSITION" type="checkbox" value="1" / -->
+				<field name="show_as_system_message" class="btn-group" label="MOD_SMR_MOTD_SHOW_AS_SYSTEM_MESSAGE" type="radio" default="0">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="heading_level" label="MOD_SMR_MOTD_HEADING_LEVEL" type="integer" default="4" first="1" last="6" step="1" />
+				<field name="show_message_heading" class="btn-group" label="MOD_SMR_MOTD_SHOW_MESSAGE_HEADING" type="radio" default="1">
+					<option value="1">JSHOW</option>
+					<option value="0">JHIDE</option>
+				</field>
 				<field name="type" label="MOD_SMR_MOTD_TYPE" type="list" required="true">
 					<option value="info">MOD_SMR_MOTD_NOTICE</option>
 					<option value="warning">MOD_SMR_MOTD_WARNING</option>
 					<option value="error">MOD_SMR_MOTD_ERROR</option>
 					<option value="success">MOD_SMR_MOTD_MESSAGE</option>
+					<option value="none">MOD_SMR_MOTD_NONE</option>
 				</field>
 				<field
 					name="message"
