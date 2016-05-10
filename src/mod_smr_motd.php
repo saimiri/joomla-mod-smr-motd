@@ -26,33 +26,66 @@
  */
 
 // No direct access
-defined( '_JEXEC' ) or die;
+defined( '_JEXEC' ) or die( 'Like a man' );
 
 // These help us see if we are in the root folder of the administration section,
 // ie. either the login page or the control panel.
-$cPanel = JURI::base();
+$cPanel     = JURI::base();
 $currentUrl = str_replace( 'index.php', '', JURI::current() );
+$user       = JFactory::getUser();
+$canAccess  = true;
 
-if ( $module->position === 'login' || $params->get( 'show_as_system_message', 0 ) == 0 ) {
-	// Show message in the actual module position.
-	// Allow override. Use cases are probably pretty limited, but what the heck.
-	require JModuleHelper::getLayoutPath( 'mod_smr_motd', $params->get( 'layout', 'default' ) );
-} else if ( $currentUrl === $cPanel && !JFactory::getUser()->guest ) {
-	// Show the message in the message position on the control panel
-	// The Joomla! message types don't precisely correlate with bootstrap
-	$typeMap = array(
-		'info'    => 'notice',
-		'warning' => 'warning',
-		'error'   => 'error',
-		'success' => 'message',
-		'none'    => 'none'
-	);
-	$type = $params->get( 'type', 'info' );
-	if ( isset( $typeMap[$type] ) ) {
-		$messageType = $typeMap[$type];
-	} else {
-		$messageType = 'notice';
+if ( empty( $module->position ) ) {
+	$module->position = 'cpanel';
+}
+
+// Root sees everything and messages on login page are visible to everyone
+if ( !$user->authorise( 'core.admin' ) && $module->position !== 'login' ) {
+	$userMatch = false;
+	if ( $params->get( 'filter_by_user' ) !== 'no' ) {
+		// If we are including, $include == true, if excluding $include == false
+		$include = $params->get( 'filter_by_user' ) === 'include';
+		// If we are including users, default $visible... == false, if excluding
+		// default $visible... == true
+		$canAccess = !$include;
+		if ( in_array( $user->id, $params->get( 'users', [] ) ) === true ) {
+			$canAccess = $include;
+			$userMatch = true;
+		}
 	}
-	$app = JFactory::getApplication();
-	$app->enqueueMessage( $params->get( 'message' ), $messageType );
+
+	// User filters are more specific so if they match we ignore the group filters
+	if ( !$userMatch && $params->get( 'filter_by_group' ) !== 'no' ) {
+		$include = $params->get( 'filter_by_group' ) === 'include';
+		$canAccess = !$include;
+		if ( count( array_intersect( $user->groups, $params->get( 'groups', [] ) ) ) > 0 ) {
+			$canAccess = $include;
+		}
+	}
+}
+
+if ( $canAccess ) {
+	if ( $module->position === 'login' || $params->get( 'show_as_system_message', 0 ) == 0 ) {
+		// ^-Show message in the actual module position.
+		// Allow override. Use cases are probably pretty limited, but what the heck.
+		require JModuleHelper::getLayoutPath( 'mod_smr_motd', $params->get( 'layout', 'default' ) );
+	} else if ( $currentUrl === $cPanel && !JFactory::getUser()->guest ) {
+		// ^-Show the message in the message position on the control panel
+		// The Joomla! message types don't precisely correlate with bootstrap
+		$typeMap = array(
+			'info'    => 'notice',
+			'warning' => 'warning',
+			'error'   => 'error',
+			'success' => 'message',
+			'none'    => 'none'
+		);
+		$type = $params->get( 'type', 'info' );
+		if ( isset( $typeMap[$type] ) ) {
+			$messageType = $typeMap[$type];
+		} else {
+			$messageType = 'notice';
+		}
+		$app = JFactory::getApplication();
+		$app->enqueueMessage( $params->get( 'message' ), $messageType );
+	}
 }

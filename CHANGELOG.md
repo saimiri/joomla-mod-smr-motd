@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0 - 2016-03-15
+
+### Added
+- It is now possible to control the visibility of the message by either
+  including or excluding users and groups.
+
 ## 1.1.0 - 2016-02-12
 
 ### Changed

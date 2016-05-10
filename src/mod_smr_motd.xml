@@ -7,19 +7,14 @@
 	<license>Licensed under the Apache License, Version 2.0</license>
 	<authorEmail>info@saimiri.fi</authorEmail>
 	<authorUrl>www.saimiri.fi</authorUrl>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<description>MOD_SMR_MOTD_DESC</description>
 	<files>
 		<filename module="mod_smr_motd">mod_smr_motd.php</filename>
 		<filename>index.html</filename>
+		<folder>language</folder>
 		<folder>tmpl</folder>
 	</files>
-	<languages folder="language">
-		<language tag="en-GB">en-GB/en-GB.mod_smr_motd.ini</language>
-		<language tag="en-GB">en-GB/en-GB.mod_smr_motd.sys.ini</language>
-		<language tag="fi-FI">fi-FI/fi-FI.mod_smr_motd.ini</language>
-		<language tag="fi-FI">fi-FI/fi-FI.mod_smr_motd.sys.ini</language>
-	</languages>
 
 	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_CUSTOM_MOTD" />
 	<config>
@@ -42,6 +37,21 @@
 					<option value="success">MOD_SMR_MOTD_MESSAGE</option>
 					<option value="none">MOD_SMR_MOTD_NONE</option>
 				</field>
+				<field name="filter_by_group" label="MOD_SMR_MOTD_FILTER_BY_GROUP" type="list" default="no">
+					<option value="no">JNO</option>
+					<option value="include">MOD_SMR_MOTD_INCLUDE</option>
+					<option value="exclude">MOD_SMR_MOTD_EXCLUDE</option>
+				</field>
+				<field name="groups" label="MOD_SMR_MOTD_GROUPS" type="usergrouplist" multiple="multiple" />
+				<field name="filter_by_user" label="MOD_SMR_MOTD_FILTER_BY_USER" type="list" default="no">
+					<option value="no">JNO</option>
+					<option value="include">MOD_SMR_MOTD_INCLUDE</option>
+					<option value="exclude">MOD_SMR_MOTD_EXCLUDE</option>
+				</field>
+				<field name="users" label="MOD_SMR_MOTD_USERS" type="sql" multiple="multiple"
+					query="SELECT id AS value,name FROM #__users WHERE block = 0 ORDER BY name ASC"
+					value_field="name"
+					default="" />
 				<field
 					name="message"
 					label="MOD_SMR_MOTD_MESSAGE"
